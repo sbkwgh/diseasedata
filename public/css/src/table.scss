@@ -1,0 +1,69 @@
+.wiki-click {
+	cursor: pointer;
+
+	&:hover {
+		text-decoration: underline;
+	}
+}
+
+#select-set-box {
+	display: flex;
+	height: 100%;
+	align-items: center;
+	justify-content: center;
+	font-size: 2rem;
+
+	select {
+		font-size: 1.5rem;
+		-webkit-appearance: none;
+		padding: 0.25rem 0.5rem;
+		margin-left: 0.6rem;
+		-moz-appearance: none;
+		font-family: 'Roboto', sans-serif;
+		appearance: none;
+		outline: none;
+
+		&:hover {
+			border-color: $color-gray;	
+		}
+	}
+
+}
+
+table {
+	border-collapse: collapse;
+	margin: 1rem;
+	border: thin solid $color-gray;
+
+	td:first-child {
+		padding-left: 1rem;
+	}
+	td:last-child {
+		padding-right: 1rem;
+
+		&::after {
+			content: '';
+			display: none;
+		}
+	}
+	td {
+		border-bottom: thin solid $color-gray;
+		padding: 0.5rem;
+		padding-right: 2rem;
+		position: relative;
+
+		div {
+			max-height: 12.5rem;
+			overflow-y: auto;
+		}
+
+		&::after {
+			content: '\002192';
+			position: absolute;
+			left: calc(100% - 2rem);
+			height: 100%;
+			font-size: 2rem;
+			top: 38%;
+		}
+	}
+}

@@ -1,0 +1,31 @@
+<template v-if='relationships.length'>
+	<div class='padded-div'>
+		<b class='wiki-click'>{{gene}}</b> is associated with <b class='wiki-click'>{{disease}}</b>
+		<template v-if='associatedGenes.length'>
+			via:
+			<ul class='li-columns-3'><li v-for='item in associatedGenes'>{{item}}</li></ul>
+		</template>
+	</div>
+	<table>
+		<tr v-for='relationship in relationships'>
+			<td v-for='item in relationship'>
+				<div>
+					{{{(item.symbol || item.name) || item.sentence_text}}}
+					<template v-if='item.source === "Pubmed"'>
+						<br/>
+						<a target='_blank' href='http://www.ncbi.nlm.nih.gov/pubmed/{{item.source_reference[0]|getPubMedId}}'>
+							View on PubMed <i class='fa fa-external-link'></i>
+						</a>
+					</template>
+				</div>
+			</td>
+		</tr>
+	</table>
+</template>
+<div id='select-set-box' v-else>
+	Select a data-set:
+	<select v-model='selectedSet' v-on:change='select'>
+		<option disabled>...</option>
+		<option v-for='set in sets' v-bind:value='set.value'>{{set.name}}</option>
+	</select>
+</div>
