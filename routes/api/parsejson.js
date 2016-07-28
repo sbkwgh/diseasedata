@@ -1,7 +1,7 @@
 var fs = require('fs');
 var JSONStream = require('JSONStream');
 
-var sets = ['NEK1', 'TP53'];
+var sets = fs.readdirSync('sets').map(item => item.split('.')[0]);
 
 var duplicates = {};
 var processedData = {};
