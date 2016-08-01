@@ -1,3 +1,5 @@
+console.time('\nSuccess');
+
 var fs = require('fs');
 var JSONStream = require('JSONStream');
 
@@ -36,17 +38,18 @@ function processData(data, set) {
 var saveToFileCount = 0;
 function saveToFile(set) {
 	saveToFileCount++;
-	console.log('Processed ' + set);
+	console.timeEnd('Processed ' + set);
 
 	if(saveToFileCount === sets.length) {
 		fs.writeFile(__dirname + '/processedData.json', JSON.stringify(processedData), function(err) {
 			if(err) throw err;
-			else console.log('\nSuccess');
+			else console.timeEnd('\nSuccess');
 		});
 	}
 }
 
 sets.forEach(function(set) {
+	console.time('Processed ' + set);
 	fs
 		.createReadStream(__dirname + '/sets/' + set + '.json')
 		.pipe(JSONStream.parse('data.*.row.0'))
