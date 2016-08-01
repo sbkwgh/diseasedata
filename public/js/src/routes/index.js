@@ -9,6 +9,7 @@ module.exports = function (Vue) {
 				associatedGenes: [],
 				sets: [
 					{name: 'NEK1 → ALS', value: 'NEK1'},
+					{name: 'NEK1 → huntington\'s', value: 'NEK1_hd'},
 					{name: 'TP53 → breast cancer', value: 'TP53'},
 					{name: 'SHANK3 → autism', value: 'SHANK3'},
 					{name: 'TMEM230 → parkinson\'s', value: 'TMEM230'}
