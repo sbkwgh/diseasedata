@@ -33,6 +33,7 @@
 table {
 	border-collapse: collapse;
 	margin: 1rem;
+	width: calc(100% - 2rem);
 	border: thin solid $color-gray;
 
 	td:first-child {
@@ -54,6 +55,7 @@ table {
 
 		div {
 			max-height: 12.5rem;
+			min-height: 2rem;
 			overflow-y: auto;
 		}
 

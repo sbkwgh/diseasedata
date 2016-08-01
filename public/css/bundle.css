@@ -37,6 +37,7 @@ html, body {
 table {
   border-collapse: collapse;
   margin: 1rem;
+  width: calc(100% - 2rem);
   border: thin solid #bbb; }
   table td:first-child {
     padding-left: 1rem; }
@@ -52,6 +53,7 @@ table {
     position: relative; }
     table td div {
       max-height: 12.5rem;
+      min-height: 2rem;
       overflow-y: auto; }
     table td::after {
       content: '\002192';
