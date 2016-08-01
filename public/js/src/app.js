@@ -51,7 +51,9 @@ var App = Vue.extend({
 		}
 	}
 });
-var router = new VueRouter();
+var router = new VueRouter({
+	history: true
+});
 
 router.map({
 	'/': {
@@ -59,6 +61,9 @@ router.map({
 	},
 	'/thing/:name': {
 		component: require('./routes/thing.js')(Vue)
+	},
+	'*': {
+		component: require('./routes/404.js')(Vue)
 	}
 });
 

@@ -97,7 +97,9 @@
 			}
 		}
 	});
-	var router = new VueRouter();
+	var router = new VueRouter({
+		history: true
+	});
 
 	router.map({
 		'/': {
@@ -105,6 +107,9 @@
 		},
 		'/thing/:name': {
 			component: __webpack_require__(11)(Vue)
+		},
+		'*': {
+			component: __webpack_require__(13)(Vue)
 		}
 	});
 
@@ -14525,6 +14530,27 @@
 /***/ function(module, exports) {
 
 	module.exports = "<div id='html'>\n\t<img v-bind:src=\"image\" v-show='image.length'><br/>\n\t{{{html}}}\n</div>";
+
+/***/ },
+/* 13 */
+/***/ function(module, exports) {
+
+	module.exports = function(Vue) {
+		return Vue.extend({
+			template: 
+				`<div class="center-message">
+					<div>404 page not found</div>
+					<div class='small' v-on:click='goHome()'>
+						Click here to go home.
+					</div>
+				</div>`,
+			methods: {
+				goHome: function() {
+					this.$router.go('/');
+				}
+			}
+		});
+	}
 
 /***/ }
 /******/ ]);
