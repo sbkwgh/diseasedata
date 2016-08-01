@@ -13046,7 +13046,12 @@
 					gene: '',
 					disease: '',
 					associatedGenes: [],
-					sets: [{name: 'NEK1', value: 'NEK1'}, {name: 'TP53', value: 'TP53'}],
+					sets: [
+						{name: 'NEK1 → ALS', value: 'NEK1'},
+						{name: 'TP53 → breast cancer', value: 'TP53'},
+						{name: 'SHANK3 → autism', value: 'SHANK3'},
+						{name: 'TMEM230 → parkinson\'s', value: 'TMEM230'}
+					],
 					selectedSet: '...'
 				};
 			},
@@ -13071,8 +13076,8 @@
 									res.data
 										.map(function(collection) {
 											return collection.map(function(item, index, array) {
-												if(item.sentence_text) {
-													var text = item.sentence_text;
+												if(item.sentence_text || item.description) {
+													var text = item.sentence_text || item.description;
 													var div = document.createElement('div');
 													
 													div.innerHTML = text;
@@ -13088,11 +13093,11 @@
 														text = text.replace(new RegExp('(' + next.symbol + ')', 'gi'), '<b class="wiki-click">$1</b>');
 													}
 
-													item.sentence_text = text;
+													item.text = text;
 												}
 
-												if(index === 2 && item.symbol) {
-													self.associatedGenes.push(item.symbol);
+												if(index === 2 && (item.symbol || item.pref_name)) {
+													self.associatedGenes.push(item.symbol || item.pref_name);
 												}
 
 												return item;
@@ -14467,7 +14472,7 @@
 /* 10 */
 /***/ function(module, exports) {
 
-	module.exports = "<template v-if='relationships.length'>\n\t<div class='padded-div'>\n\t\t<b class='wiki-click'>{{gene}}</b> is associated with <b class='wiki-click'>{{disease}}</b>\n\t\t<template v-if='associatedGenes.length'>\n\t\t\tvia:\n\t\t\t<ul class='li-columns-3'><li v-for='item in associatedGenes'>{{item}}</li></ul>\n\t\t</template>\n\t</div>\n\t<table>\n\t\t<tr v-for='relationship in relationships'>\n\t\t\t<td v-for='item in relationship'>\n\t\t\t\t<div>\n\t\t\t\t\t{{{(item.symbol || item.name) || item.sentence_text}}}\n\t\t\t\t\t<template v-if='item.source === \"Pubmed\"'>\n\t\t\t\t\t\t<br/>\n\t\t\t\t\t\t<a target='_blank' href='http://www.ncbi.nlm.nih.gov/pubmed/{{item.source_reference[0]|getPubMedId}}'>\n\t\t\t\t\t\t\tView on PubMed <i class='fa fa-external-link'></i>\n\t\t\t\t\t\t</a>\n\t\t\t\t\t</template>\n\t\t\t\t</div>\n\t\t\t</td>\n\t\t</tr>\n\t</table>\n</template>\n<div id='select-set-box' v-else>\n\tSelect a data-set:\n\t<select v-model='selectedSet' v-on:change='select'>\n\t\t<option disabled>...</option>\n\t\t<option v-for='set in sets' v-bind:value='set.value'>{{set.name}}</option>\n\t</select>\n</div>";
+	module.exports = "<template v-if='relationships.length'>\n\t<div class='padded-div'>\n\t\t<b class='wiki-click'>{{gene}}</b> is associated with <b class='wiki-click'>{{disease}}</b>\n\t\t<template v-if='associatedGenes.length'>\n\t\t\tvia:\n\t\t\t<ul class='li-columns-3'><li v-for='item in associatedGenes'>{{item}}</li></ul>\n\t\t</template>\n\t</div>\n\t<table>\n\t\t<tr v-for='relationship in relationships'>\n\t\t\t<td v-for='item in relationship'>\n\t\t\t\t<div>\n\t\t\t\t\t{{{(item.symbol || item.name) || (item.text)}}}\n\t\t\t\t\t<template v-if='item.source === \"CTD\"'>Sourced from CTD</template>\n\t\t\t\t\t<template v-if='item.source === \"Pubmed\"'>\n\t\t\t\t\t\t<br/>\n\t\t\t\t\t\t<a target='_blank' href='http://www.ncbi.nlm.nih.gov/pubmed/{{item.source_reference[0]|getPubMedId}}'>\n\t\t\t\t\t\t\tView on PubMed <i class='fa fa-external-link'></i>\n\t\t\t\t\t\t</a>\n\t\t\t\t\t</template>\n\t\t\t\t</div>\n\t\t\t</td>\n\t\t</tr>\n\t</table>\n</template>\n<div id='select-set-box' v-else>\n\tSelect a data-set:\n\t<select v-model='selectedSet' v-on:change='select'>\n\t\t<option disabled>...</option>\n\t\t<option v-for='set in sets' v-bind:value='set.value'>{{set.name}}</option>\n\t</select>\n</div>";
 
 /***/ },
 /* 11 */

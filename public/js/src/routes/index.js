@@ -7,7 +7,12 @@ module.exports = function (Vue) {
 				gene: '',
 				disease: '',
 				associatedGenes: [],
-				sets: [{name: 'NEK1', value: 'NEK1'}, {name: 'TP53', value: 'TP53'}],
+				sets: [
+					{name: 'NEK1 → ALS', value: 'NEK1'},
+					{name: 'TP53 → breast cancer', value: 'TP53'},
+					{name: 'SHANK3 → autism', value: 'SHANK3'},
+					{name: 'TMEM230 → parkinson\'s', value: 'TMEM230'}
+				],
 				selectedSet: '...'
 			};
 		},
@@ -32,8 +37,8 @@ module.exports = function (Vue) {
 								res.data
 									.map(function(collection) {
 										return collection.map(function(item, index, array) {
-											if(item.sentence_text) {
-												var text = item.sentence_text;
+											if(item.sentence_text || item.description) {
+												var text = item.sentence_text || item.description;
 												var div = document.createElement('div');
 												
 												div.innerHTML = text;
@@ -49,11 +54,11 @@ module.exports = function (Vue) {
 													text = text.replace(new RegExp('(' + next.symbol + ')', 'gi'), '<b class="wiki-click">$1</b>');
 												}
 
-												item.sentence_text = text;
+												item.text = text;
 											}
 
-											if(index === 2 && item.symbol) {
-												self.associatedGenes.push(item.symbol);
+											if(index === 2 && (item.symbol || item.pref_name)) {
+												self.associatedGenes.push(item.symbol || item.pref_name);
 											}
 
 											return item;

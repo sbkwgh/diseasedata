@@ -10,7 +10,8 @@
 		<tr v-for='relationship in relationships'>
 			<td v-for='item in relationship'>
 				<div>
-					{{{(item.symbol || item.name) || item.sentence_text}}}
+					{{{(item.symbol || item.name) || (item.text)}}}
+					<template v-if='item.source === "CTD"'>Sourced from CTD</template>
 					<template v-if='item.source === "Pubmed"'>
 						<br/>
 						<a target='_blank' href='http://www.ncbi.nlm.nih.gov/pubmed/{{item.source_reference[0]|getPubMedId}}'>

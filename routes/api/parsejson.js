@@ -1,7 +1,10 @@
 var fs = require('fs');
 var JSONStream = require('JSONStream');
 
-var sets = fs.readdirSync('sets').map(item => item.split('.')[0]);
+var sets = fs
+	.readdirSync('sets')
+	.map(item => item.split('.')[0])
+	.filter(item => item.length);
 
 var duplicates = {};
 var processedData = {};
@@ -17,6 +20,10 @@ function processData(data, set) {
 
 	if(thirdColumn.symbol && duplicates[set].indexOf(thirdColumn.symbol) === -1) {
 		duplicates[set].push(thirdColumn.symbol);
+
+		processedData[set].push(data);
+	} else if(thirdColumn.pref_name && duplicates[set].indexOf(thirdColumn.pref_name) === -1) {
+		duplicates[set].push(thirdColumn.pref_name);
 
 		processedData[set].push(data);
 	} else if(secondColumn.sentence_text && !data[3] && duplicates[set].indexOf(secondColumn.sentence_text) === -1) {
