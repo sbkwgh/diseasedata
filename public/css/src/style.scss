@@ -53,6 +53,10 @@ $color-gray: #bbb;
 		cursor: pointer;
 		margin: 0 0.25rem;
 		transition: all 0.2s;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
 
 		&:hover {
 			background-color: $color-lightgray;
